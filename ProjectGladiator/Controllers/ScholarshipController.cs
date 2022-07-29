@@ -35,5 +35,23 @@ namespace ProjectGladiator.Controllers
             }
             return Ok(data);
         }
+        [HttpPost]
+        [Route("AddScholarship")]
+        public IActionResult PostScholarship(Scholarship scholarship)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Scholarships.Add(scholarship);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            return Created("Application successfully added", scholarship);
+        }
     }
 }
